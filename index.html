@@ -26,40 +26,40 @@
                     <span class="image">
                         <img src="logo.png" alt="">
                     </span>
-    
+
                     <div class="text logo-text">
                         <span class="name">TrackIT</span>
                         <span class="profession">Spend Wisely!</span>
                     </div>
                 </div>
             </header>
-    
+
             <div class="menu-bar">
                 <div class="menu">
                     <ul class="menu-links">
                         <li class="nav-link">
-                            <a href="#dashboard">
+                            <a href="#dashboard" onclick="showSection('dashboard')">
                                 <i class='bx bx-home-alt icon'></i>
                                 <span class="text nav-text">Dashboard</span>
                             </a>
                         </li>
-    
+
                         <li class="nav-link">
-                            <a href="#expenses">
+                            <a href="#expenses" onclick="showSection('expenses')">
                                 <i class='bx bx-bar-chart-alt-2 icon'></i>
                                 <span class="text nav-text">Expenses</span>
                             </a>
                         </li>
-    
+
                         <li class="nav-link">
-                            <a href="#budget">
+                            <a href="#budget" onclick="showSection('budget')">
                                 <i class='bx bx-money icon'></i>
                                 <span class="text nav-text">Budget</span>
                             </a>
                         </li>
                     </ul>
                 </div>
-    
+
                 <div class="bottom-content">
                     <li class="mode">
                         <div class="sun-moon">
@@ -67,7 +67,7 @@
                             <i class='bx bx-sun icon sun'></i>
                         </div>
                         <span class="mode-text text">Dark mode</span>
-    
+
                         <div class="toggle-switch">
                             <span class="switch"></span>
                         </div>
@@ -102,66 +102,58 @@
 
         <section id="expenses">
             <!-- expenses code -->
-            <h2>Record Expenses</h2>
-    <form id="expense-form">
-        <div>
-            <label for="title">Title:</label>
-            <input type="text" id="title" required>
-        </div>
-        <div>
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" required>
-        </div>
-        <div>
-            <label for="date">Date:</label>
-            <input type="date" id="date" required>
-        </div>
-        <div>
-            <label for="category">Category:</label>
-            <select id="category" required>
-                <option value="Personal Expenses">Personal Expenses</option>
-                <option value="Professional Expenses">Professional Expenses</option>
-                <option value="Fuel">Fuel</option>
-                <option value="Groceries">Groceries</option>
-            </select>
-        </div>
-        <div>
-            <label for="description">Description:</label>
-            <textarea id="description" required></textarea>
-        </div>
-        <button type="submit">Add Expense</button>
-    </form>
+            <h2>Add Expense</h2>
+            <form id="expense-form">
+                <input type="text" id="title" placeholder="Title" required>
+                <input type="number" id="amount" placeholder="Amount" required>
+                <input type="date" id="date" required>
+                <select id="category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Personal Expenses">Personal Expenses</option>
+                    <option value="Professional Expenses">Professional Expenses</option>
+                    <option value="Fuel">Fuel</option>
+                    <option value="Groceries">Groceries</option>
+                </select>
+                <textarea id="description" placeholder="Description"></textarea>
+                <button type="submit" id="submit-btn">Add Expense</button>
+            </form>
+            <div>
+                <input type="text" id="search-input" placeholder="Search by title or description">
+                <label for="sort-options">Sort by Date:</label>
+                <select id="sort-options">
+                    <option value="none">None</option>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
 
-    <h3>Expenses List</h3>
-    <input type="text" id="search-input" placeholder="Search by title or description">
-    <select id="sort-select">
-        <option value="asc">Sort by Date (Asc)</option>
-        <option value="desc">Sort by Date (Desc)</option>
-    </select>
-
-    <table id="expenses-table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Category</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be added here dynamically -->
-        </tbody>
-    </table>
+            <h2>Expenses List</h2>
+            <table id="expenses-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="expenses-body">
+                    <!-- Rows will be added here -->
+                </tbody>
+            </table>
         </section>
 
-        <section id="budget">
+        <section id="budget"">
             <!-- budget code -->
         </section>
     </main>
 
     <!-- Link to external JavaScript file -->
-    <script src="app.js"></script>
+    <script src=" app.js">
+    </script>
 </body>
 
 </html>
