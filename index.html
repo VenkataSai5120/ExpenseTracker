@@ -14,6 +14,8 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
     <!--<title>Dashboard Sidebar Menu</title>-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -30,7 +32,6 @@
                         <span class="profession">Spend Wisely!</span>
                     </div>
                 </div>
-                <i class='bx bx-chevron-right toggle'></i>
             </header>
     
             <div class="menu-bar">
@@ -79,10 +80,29 @@
     <main>
         <section id="dashboard">
             <!-- dashboard code -->
+            <div class="dashboard-cards">
+                <div class="card" id="total-budget">
+                    <h3>Total Budget</h3>
+                    <p id="budget-amount">$0</p>
+                </div>
+                <div class="card" id="total-expenses">
+                    <h3>Total Expenses</h3>
+                    <p id="expenses-amount">$0</p>
+                </div>
+                <div class="card" id="total-left">
+                    <h3>Total Left</h3>
+                    <p id="left-amount">$0</p>
+                </div>
+                <div class="card" id="budget-usage">
+                    <h3>Budget Usage by Category</h3>
+                    <canvas id="budget-chart" width="300" height="200"></canvas> <!-- Adjust the size here -->
+                </div>
+            </div>
         </section>
 
         <section id="expenses">
             <!-- expenses code -->
+             
         </section>
 
         <section id="budget">
