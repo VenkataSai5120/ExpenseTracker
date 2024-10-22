@@ -102,7 +102,57 @@
 
         <section id="expenses">
             <!-- expenses code -->
-             
+            <h2>Record Expenses</h2>
+    <form id="expense-form">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" required>
+        </div>
+        <div>
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" required>
+        </div>
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" required>
+        </div>
+        <div>
+            <label for="category">Category:</label>
+            <select id="category" required>
+                <option value="Personal Expenses">Personal Expenses</option>
+                <option value="Professional Expenses">Professional Expenses</option>
+                <option value="Fuel">Fuel</option>
+                <option value="Groceries">Groceries</option>
+            </select>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" required></textarea>
+        </div>
+        <button type="submit">Add Expense</button>
+    </form>
+
+    <h3>Expenses List</h3>
+    <input type="text" id="search-input" placeholder="Search by title or description">
+    <select id="sort-select">
+        <option value="asc">Sort by Date (Asc)</option>
+        <option value="desc">Sort by Date (Desc)</option>
+    </select>
+
+    <table id="expenses-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here dynamically -->
+        </tbody>
+    </table>
         </section>
 
         <section id="budget">

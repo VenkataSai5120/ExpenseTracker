@@ -79,3 +79,78 @@ function calculateTotals() {
 document.addEventListener("DOMContentLoaded", () => {
     calculateTotals();
 });
+
+// Existing code...
+
+const expenseForm = document.getElementById("expense-form");
+const expensesTableBody = document.getElementById("expenses-table").querySelector("tbody");
+const searchInput = document.getElementById("search-input");
+const sortSelect = document.getElementById("sort-select");
+
+// Function to add expense
+function addExpense(expense) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${expense.title}</td>
+        <td>$${expense.amount.toFixed(2)}</td>
+        <td>${new Date(expense.date).toLocaleDateString()}</td>
+        <td>${expense.category}</td>
+        <td>${expense.description}</td>
+    `;
+    expensesTableBody.appendChild(row);
+}
+
+// Event listener for form submission
+expenseForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    const title = document.getElementById("title").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+    const date = document.getElementById("date").value;
+    const category = document.getElementById("category").value;
+    const description = document.getElementById("description").value;
+
+    // Create expense object
+    const expense = {
+        title,
+        amount,
+        date,
+        category,
+        description,
+    };
+
+    // Add expense to the table
+    addExpense(expense);
+
+    // Reset the form
+    expenseForm.reset();
+    calculateTotals(); // Recalculate totals after adding expense
+});
+
+// Search functionality
+searchInput.addEventListener("input", () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const rows = expensesTableBody.querySelectorAll("tr");
+
+    rows.forEach(row => {
+        const title = row.children[0].textContent.toLowerCase();
+        const description = row.children[4].textContent.toLowerCase();
+        row.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? "" : "none";
+    });
+});
+
+// Sort functionality
+sortSelect.addEventListener("change", () => {
+    const rows = Array.from(expensesTableBody.querySelectorAll("tr"));
+    const isAscending = sortSelect.value === "asc";
+
+    rows.sort((a, b) => {
+        const dateA = new Date(a.children[2].textContent);
+        const dateB = new Date(b.children[2].textContent);
+        return isAscending ? dateA - dateB : dateB - dateA;
+    });
+
+    // Clear table and append sorted rows
+    expensesTableBody.innerHTML = "";
+    rows.forEach(row => expensesTableBody.appendChild(row));
+});
