@@ -425,3 +425,83 @@ th {
 tbody tr:nth-child(even) {
     background-color: #f2f2f2;
 }
+
+
+/* Loading Indicator */
+#loading-indicator {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Budget */
+#budget {
+    background-color: #f8f9fa; /* Light background color for the section */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px 0; /* Margin for spacing */
+}
+
+#budget h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #343a40; /* Darker text color for headers */
+}
+
+.budget-limits {
+    margin-bottom: 20px; /* Space between budget limits and form */
+}
+
+.budget-limits h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #495057; /* Slightly lighter color */
+}
+
+.budget-limits ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+}
+
+.budget-limits li {
+    margin: 8px 0; /* Space between list items */
+    font-size: 18px;
+    color: #212529; /* Standard text color */
+}
+
+form {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+}
+
+form label {
+    margin-bottom: 5px; /* Space between label and input */
+    font-weight: bold; /* Make labels bold */
+}
+
+form select,
+form input[type="number"] {
+    padding: 10px; /* Padding for inputs */
+    border: 1px solid #ced4da; /* Light border for inputs */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 15px; /* Space below inputs */
+    font-size: 16px; /* Larger font size */
+}
+
+form button {
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    padding: 10px; /* Padding for button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Match font size */
+    transition: background-color 0.3s; /* Transition effect for hover */
+}
+
+form button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}

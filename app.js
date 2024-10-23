@@ -1,3 +1,20 @@
+const mockData = {
+    "budgetLimits": {
+        personal: 1000,
+        professional: 1200,
+        fuel: 500,
+        groceries: 500
+    }, 
+    "expensesDetails": 
+        [
+            { title: "Electricity Bill", amount: "100 USD", date: "01-10-2023", category: "Personal Expenses", description: "Monthly electricity bill" },
+            { title: "Office Supplies", amount: "150 USD", date: "05-10-2023", category: "Professional Expenses", description: "Fuel expenses" },
+            { title: "Fuel for car", amount: "$60", date: "07-10-2023", category: "Fuel", description: "Regular car refueling" },
+            { title: "Grocery Shopping", amount: "200 USD", date: "10-10-2023", category: "Groceries", description: "Weekly groceries for family" },
+            { title: "Dinner with clients", amount: 90, date: "12-10-2023", category: "Professional Expenses", description: "Business dinner with clients" }
+        ]
+}
+
 const body = document.querySelector('body'),
       sidebar = body.querySelector('nav'),
       toggle = body.querySelector(".toggle"),
@@ -18,13 +35,12 @@ modeSwitch.addEventListener("click" , () =>{
 });
 
 // Example data (you can replace this with your localStorage retrieval)
-let budget = 1000; // Set your total budget here
-let expenses = [
-    { title: "Groceries", amount: 150, date: new Date(), category: "Groceries", description: "Grocery shopping" },
-    { title: "Fuel", amount: 50, date: new Date(),category: "Fuel", description: "Fuel expenses" },
-    { title: "Utilities", amount: 100, date: new Date(), category: "Personal Expenses", description: "Electricity, water, internet" },
-    { title: "Utilities", amount: 100, date: new Date(), category: "Professional Expenses", description: "Electricity, water, internet" }
-];
+let budget = 10000; // Set your total budget here
+let personal = mockData.budgetLimits.personal;
+let professional = mockData.budgetLimits.professional;
+let fuel = mockData.budgetLimits.fuel;
+let groceries = mockData.budgetLimits.groceries;
+let expenses = [];
 
 // Function to calculate totals
 function calculateTotals() {
@@ -82,10 +98,81 @@ function calculateTotals() {
     });
 }
 
-// Initial load
+function loadExpensesData() {
+    if (expenses.length === 0) {
+        setLoading(true); // Show loading indicator
+
+        fetchMockApiData().then((data) => {
+            expenses = data; // Populate the expenses array with the fetched data
+            setLoading(false); // Hide loading indicator
+            calculateTotals(); // Update totals
+            renderExpenses(); // Render the expenses table
+        });
+    } else {
+        calculateTotals(); // Directly calculate totals if expenses list is not empty
+        renderExpenses(); // Render the expenses table
+    }
+}
+
+function setLoading(loading) {
+    const loadingIndicator = document.getElementById("loading-indicator");
+    if (loading) {
+        loadingIndicator.style.display = "block";
+    } else {
+        loadingIndicator.style.display = "none";
+    }
+}
+
+function cleanAmount(amount) {
+    // Remove any non-numeric characters (like $, USD, etc.)
+    const cleanedAmount = amount.toString().replace(/[^0-9.]/g, "");
+    return parseInt(cleanedAmount); // Convert to int
+}
+
+
+function fetchMockApiData() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            // Mock data with string amounts
+            const data = mockData.expensesDetails;
+            // Clean the amounts before resolving
+            const cleanedData = data.map(expense => ({
+                ...expense,
+                amount: cleanAmount(expense.amount) // Clean the amount
+            }));
+            resolve(cleanedData);
+        }, 3000); // Simulate a 3-second API call
+    });
+}
+
+// Function to display/hide loading indicator
+function setLoading(loading) {
+    const loadingIndicator = document.getElementById("loading-indicator");
+    if (loading) {
+        loadingIndicator.style.display = "block";
+    } else {
+        loadingIndicator.style.display = "none";
+    }
+}
+
+function loadExpensesData() {
+    if (expenses.length === 0) {
+        setLoading(true); // Show loading indicator
+
+        fetchMockApiData().then((data) => {
+            expenses = data; // Populate the expenses array with the fetched data
+            setLoading(false); // Hide loading indicator
+            calculateTotals(); // Update totals
+            renderExpenses(); // Render the expenses table
+        });
+    } else {
+        calculateTotals(); // Directly calculate totals if expenses list is not empty
+        renderExpenses(); // Render the expenses table
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    calculateTotals();
-    renderExpenses();
+    loadExpensesData(); // Load mock API data only if the expenses list is empty
 });
 
 const expenseForm = document.getElementById("expense-form");
@@ -178,9 +265,12 @@ sortOption.addEventListener("change", () => {
     renderExpenses();
 })
 
+
+
 function deleteExpense(index) {
     expenses.splice(index, 1); // Remove the expense from the array
     renderExpenses(); // Re-render the table
+    calculateTotals();
 }
 
 // Function to edit an expense
@@ -197,6 +287,33 @@ function editExpense(index) {
     editIndex = index; // Set the edit index
     document.getElementById('submit-btn').textContent = "Save Changes"; // Change button text
 }
+
+const budgetForm = document.getElementById("budget-form");
+
+budgetForm.addEventListener("submit", (event) => {
+    event.preventDefault(); // Prevent the form from submitting
+
+    const category = document.getElementById("budget-category").value;
+    const newAmount = parseInt(document.getElementById("new-budget-amount").value);
+
+    // Update the budget limit based on category
+    if (category === "personal") {
+        mockData.budgetLimits.personal = newAmount;
+        document.getElementById("personal-budget").innerText = `$${newAmount}`;
+    } else if (category === "professional") {
+        mockData.budgetLimits.professional = newAmount;
+        document.getElementById("professional-budget").innerText = `$${newAmount}`;
+    } else if (category === "fuel") {
+        mockData.budgetLimits.fuel = newAmount;
+        document.getElementById("fuel-budget").innerText = `$${newAmount}`;
+    } else if (category === "groceries") {
+        mockData.budgetLimits.groceries = newAmount;
+        document.getElementById("groceries-budget").innerText = `$${newAmount}`;
+    }
+
+    // Reset the form
+    budgetForm.reset();
+});
 
 function showSection(givenSection) {
   if (givenSection === "dashboard") {
